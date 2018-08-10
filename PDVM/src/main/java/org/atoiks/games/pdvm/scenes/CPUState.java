@@ -82,7 +82,7 @@ public class CPUState extends Scene {
         g.drawString("PC: " + core.programCounter, 15, 15 + 4 * MONOSPACE_FONT.getSize());
         g.drawString("IB: " + core.inputBuffer, 15, 15 + 5 * MONOSPACE_FONT.getSize());
 
-        g.drawString("^-/ for", 14, 15 + 7 * MONOSPACE_FONT.getSize());
+        g.drawString("^-H for", 14, 15 + 7 * MONOSPACE_FONT.getSize());
         g.drawString("manual", 16, 15 + 8 * MONOSPACE_FONT.getSize());
 
         g.drawLine(70, 0, 70, HEIGHT);
@@ -129,7 +129,7 @@ public class CPUState extends Scene {
 
         if (scene.keyboard().isKeyDown(KeyEvent.VK_CONTROL)) {
             // Get help
-            if (scene.keyboard().isKeyPressed(KeyEvent.VK_SLASH)) {
+            if (scene.keyboard().isKeyPressed(KeyEvent.VK_H)) {
                 scene.keyboard().captureTypedChars(false);
                 scene.gotoNextScene();
                 return true;
