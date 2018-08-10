@@ -36,6 +36,7 @@ public class Assembler {
         for (int i = 0; i < tokens.length; ++i) {
             final String op = tokens[i];
             switch (op.toLowerCase()) {
+                case "": break;
                 case "hlt":   address += Byte.BYTES; break;
                 case "add_a": address += Byte.BYTES; break;
                 case "add_p": address += Byte.BYTES; break;
@@ -79,6 +80,7 @@ public class Assembler {
         for (int i = 0; i < tokens.length; ++i) {
             final String op = tokens[i];
             switch (op.toLowerCase()) {
+                case "": break;
                 case "hlt":   code.put(OP_HLT); break;
                 case "add_a": code.put(OP_ADD_A); break;
                 case "add_p": code.put(OP_ADD_P); break;
