@@ -123,7 +123,7 @@ public class Core implements Unit {
                 break;
             }
             case OP_STHA:
-                mem.data.put(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]), (byte) (a >> Byte.BYTES));
+                mem.data.put(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]), (byte) a);
                 break;
             case OP_STFA:
                 mem.data.putShort(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]), a);
