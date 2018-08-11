@@ -18,11 +18,10 @@
 
 package org.atoiks.games.pdvm;
 
-public interface Unit {
+public class Memory {
 
-    public void reset();
+    public final int MIN_ADDRESS = 0;
+    public final int MAX_ADDRESS = 2 * (Short.SIZE - 1);
 
-    public void invokeNext();
-
-    public void mapMemory(Memory mem);
+    public final byte[] data = new byte[MAX_ADDRESS - MIN_ADDRESS];
 }

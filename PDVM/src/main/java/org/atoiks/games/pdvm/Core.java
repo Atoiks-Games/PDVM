@@ -26,6 +26,8 @@ public class Core implements Unit {
 
     private byte[] code = new byte[0];
 
+    private Memory mem = null;
+
     // Absence of value = null, has value = whatever the value is
     public Short inputBuffer = null;
 
@@ -135,5 +137,10 @@ public class Core implements Unit {
         final short hs = fetch16Bit();
         final short ls = fetch16Bit();
         return (int) ((hs << Short.BYTES) | ls);
+    }
+
+    @Override
+    public void mapMemory(final Memory mem) {
+        this.mem = mem;
     }
 }
