@@ -369,6 +369,7 @@ public class Assembler extends AssemblyBaseListener {
         if (code == null) {
             address += Byte.BYTES + Short.BYTES + Byte.BYTES;
         }
+        retShort = retByte = 0;
     }
 
     @Override
@@ -385,6 +386,7 @@ public class Assembler extends AssemblyBaseListener {
         if (code == null) {
             address += Byte.BYTES + Short.BYTES + Byte.BYTES;
         }
+        retShort = retByte = 0;
     }
 
     @Override
@@ -401,6 +403,7 @@ public class Assembler extends AssemblyBaseListener {
         if (code == null) {
             address += Byte.BYTES + Short.BYTES + Byte.BYTES;
         }
+        retShort = retByte = 0;
     }
 
     @Override
@@ -417,6 +420,7 @@ public class Assembler extends AssemblyBaseListener {
         if (code == null) {
             address += Byte.BYTES + Short.BYTES + Byte.BYTES;
         }
+        retShort = retByte = 0;
     }
 
     @Override
