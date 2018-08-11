@@ -37,6 +37,8 @@ import static org.atoiks.games.pdvm.App.MONOSPACE_FONT;
 
 public class CPUState extends Scene {
 
+    private static final int EDITOR_START_X = 102;
+
     private int currentCore;
 
     private CPU cpu;
@@ -82,10 +84,9 @@ public class CPUState extends Scene {
         g.drawString("PC: " + core.programCounter, 15, 15 + 4 * MONOSPACE_FONT.getSize());
         g.drawString("IB: " + core.inputBuffer, 15, 15 + 5 * MONOSPACE_FONT.getSize());
 
-        g.drawString("^-H for", 14, 15 + 7 * MONOSPACE_FONT.getSize());
-        g.drawString("manual", 16, 15 + 8 * MONOSPACE_FONT.getSize());
+        g.drawString("^-H for manual", 10, 15 + 8 * MONOSPACE_FONT.getSize());
 
-        g.drawLine(70, 0, 70, HEIGHT);
+        g.drawLine(EDITOR_START_X, 0, EDITOR_START_X, HEIGHT);
 
         int height = 15; int index = 0;
         for (final StringBuilder s : lines[currentCore]) {
@@ -94,9 +95,9 @@ public class CPUState extends Scene {
                 render += '¬';
             }
 
-            g.drawString(render, 82, height);
+            g.drawString(render, EDITOR_START_X + 12, height);
             if (index == offsets[currentCore]) {
-                g.drawString("–>", 70, height);
+                g.drawString("–>", EDITOR_START_X, height);
             }
 
             height += MONOSPACE_FONT.getSize();
@@ -206,7 +207,7 @@ public class CPUState extends Scene {
     }
 
     private void assembleAndAttach(int coreId) {
-        final byte[] code = Assembler.assemble(lines[coreId].stream().collect(Collectors.joining(" ")));
+        final byte[] code = Assembler.assemble(lines[coreId].stream().collect(Collectors.joining("\n")));
         final Core core = cpu.getCore(coreId);
         core.attachCode(code);
     }

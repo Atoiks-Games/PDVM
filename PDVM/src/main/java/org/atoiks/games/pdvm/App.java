@@ -53,11 +53,20 @@ public class App {
                 .setFps(24f)
                 .setResizable(false)
                 .setSize(WIDTH + (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0 ? 12 : 0), HEIGHT)
-                .addResource("cpu", new CPU(4))
                 .setScenes(new CPUState(), new HelpPage());
+        processResources(info);
         try (final Frame frame = new Frame(info)) {
             frame.init();
             frame.loop();
         }
+    }
+
+    private static void processResources(final FrameInfo info) {
+        final CPU cpu = new CPU(4);
+        final Memory mem = new Memory();
+        cpu.mapMemory(mem);
+
+        info.addResource("cpu", cpu);
+        info.addResource("ram", mem);
     }
 }

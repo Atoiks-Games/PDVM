@@ -18,11 +18,12 @@
 
 package org.atoiks.games.pdvm;
 
-public interface Unit {
+import java.nio.ByteBuffer;
 
-    public void reset();
+public class Memory {
 
-    public void invokeNext();
+    public final int MIN_ADDRESS = 0;
+    public final int MAX_ADDRESS = 2 << (Short.SIZE - 1);
 
-    public void mapMemory(Memory mem);
+    public final ByteBuffer data = ByteBuffer.allocate(MAX_ADDRESS - MIN_ADDRESS);
 }

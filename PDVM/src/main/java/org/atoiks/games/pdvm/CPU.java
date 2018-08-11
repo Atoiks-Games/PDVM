@@ -51,4 +51,11 @@ public class CPU implements Unit {
             core.invokeNext();
         }
     }
+
+    @Override
+    public void mapMemory(final Memory mem) {
+        for (final Core core : cores) {
+            core.mapMemory(mem);
+        }
+    }
 }
