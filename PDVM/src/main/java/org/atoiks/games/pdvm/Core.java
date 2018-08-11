@@ -125,8 +125,8 @@ public class Core implements Unit {
             case OP_STHA:
                 mem.data.put(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]), (byte) (a >> Byte.BYTES));
                 break;
-            case OP_STLA:
-                mem.data.put(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]), (byte) a);
+            case OP_STFA:
+                mem.data.putShort(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]), a);
                 break;
             case OP_LDHA:
                 a = mem.data.get(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]));
@@ -149,7 +149,7 @@ public class Core implements Unit {
         // Behaviour is specified by Opcode.java
         final int regValue = getRegisterValueFromIndex(k & 0x0F);
         switch (k & 0xF0) {
-            case 0:    return raw;
+            case 0x00: return raw;
             case 0x10: return raw + regValue;
             case 0x20: return mem.data.getShort(raw + regValue);
             case 0x30: return mem.data.getShort(raw) + regValue;
@@ -162,7 +162,7 @@ public class Core implements Unit {
             case 0:  return a;
             case 1:  return p;
             case 2:  return c;
-            case 4:  return programCounter;
+            case 3:  return programCounter;
             default: return -1;
         }
     }

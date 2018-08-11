@@ -64,7 +64,7 @@ public final class Opcode {
     // <op> <16 bit> <0x2[reg]> => *(*(addr + R))
     // <op> <16 bit> <0x3[reg]> => *(*(addr) + R)
     public static final byte OP_STHA = 0x1B;
-    public static final byte OP_STLA = 0x1C;
+    public static final byte OP_STFA = 0x1C;
     public static final byte OP_LDHA = 0x1D;
     public static final byte OP_LDFA = 0x1E;
 
