@@ -109,7 +109,7 @@ public class HelpPage extends Scene {
         "            labels (:loop)",
         "<imm:32>  - A 32 bit immediate value, will truncate value if greater. Has same literals has <imm:16>.",
         "<memory>  - A memory address. It can be absolute (($1234)), indirect ((10, %a)), indexed indirect (((10, %a))) or indirect",
-        "            indexed (((10), %a)).",
+        "            indexed (((10), %a)). The registers can be %a, %p, %c or %pc (case insensitive)",
         "",
         "Here is a program that counts as an example (to avoid notation misunderstandings):",
         "",
