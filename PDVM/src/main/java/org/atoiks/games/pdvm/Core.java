@@ -99,8 +99,8 @@ public class Core implements Unit {
                     this.inputBuffer = null;
                 }
                 break;
-            case OP_LDA: a = fetch16Bit(); break;
-            case OP_LDP: p = fetch16Bit(); break;
+            case OP_LDA: a = (short) fetch16Bit(); break;
+            case OP_LDP: p = (short) fetch16Bit(); break;
             case OP_JMP: programCounter = fetch32Bit(); break;
             case OP_JALP: {
                 final int addr = fetch32Bit();
@@ -122,21 +122,61 @@ public class Core implements Unit {
                 if (a != p) programCounter = addr;
                 break;
             }
+            case OP_STHA:
+                mem.data.put(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]), (byte) (a >> Byte.BYTES));
+                break;
+            case OP_STLA:
+                mem.data.put(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]), (byte) a);
+                break;
+            case OP_LDHA:
+                a = mem.data.get(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]));
+                break;
+            case OP_LDFA:
+                a = mem.data.getShort(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]));
+                break;
+            case OP_SWAP: {
+                final short tmp = p;
+                p = a;
+                a = tmp;
+                break;
+            }
             default:
                 throw new IllegalStateException("PANIC: Unknown opcode " + op);
         }
     }
 
-    private short fetch16Bit() {
-        final byte hb = code[programCounter++];
-        final byte lb = code[programCounter++];
-        return (short) ((hb << Byte.BYTES) | lb);
+    private int calculateEffectiveAddress(final int raw, byte k) {
+        // Behaviour is specified by Opcode.java
+        final int regValue = getRegisterValueFromIndex(k & 0x0F);
+        switch (k & 0xF0) {
+            case 0:    return raw;
+            case 0x10: return raw + regValue;
+            case 0x20: return mem.data.getShort(raw + regValue);
+            case 0x30: return mem.data.getShort(raw) + regValue;
+            default:   return -1;
+        }
+    }
+
+    private int getRegisterValueFromIndex(final int k) {
+        switch (k) {
+            case 0:  return a;
+            case 1:  return p;
+            case 2:  return c;
+            case 4:  return programCounter;
+            default: return -1;
+        }
+    }
+
+    private int fetch16Bit() {
+        final int hb = Byte.toUnsignedInt(code[programCounter++]);
+        final int lb = Byte.toUnsignedInt(code[programCounter++]);
+        return (hb << Byte.BYTES) | lb;
     }
 
     private int fetch32Bit() {
-        final short hs = fetch16Bit();
-        final short ls = fetch16Bit();
-        return (int) ((hs << Short.BYTES) | ls);
+        final int hs = fetch16Bit();
+        final int ls = fetch16Bit();
+        return (hs << Short.BYTES) | ls;
     }
 
     @Override

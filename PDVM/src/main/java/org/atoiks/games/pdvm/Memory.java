@@ -18,10 +18,12 @@
 
 package org.atoiks.games.pdvm;
 
+import java.nio.ByteBuffer;
+
 public class Memory {
 
     public final int MIN_ADDRESS = 0;
     public final int MAX_ADDRESS = 2 * (Short.SIZE - 1);
 
-    public final byte[] data = new byte[MAX_ADDRESS - MIN_ADDRESS];
+    public final ByteBuffer data = ByteBuffer.allocate(MAX_ADDRESS - MIN_ADDRESS);
 }
