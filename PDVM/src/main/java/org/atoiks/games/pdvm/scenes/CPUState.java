@@ -206,7 +206,7 @@ public class CPUState extends Scene {
     }
 
     private void assembleAndAttach(int coreId) {
-        final byte[] code = Assembler.assemble(lines[coreId].stream().collect(Collectors.joining(" ")));
+        final byte[] code = Assembler.assemble(lines[coreId].stream().collect(Collectors.joining("\n")));
         final Core core = cpu.getCore(coreId);
         core.attachCode(code);
     }

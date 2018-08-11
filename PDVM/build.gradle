@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'antlr'
 apply plugin: 'application'
 
 mainClassName = 'org.atoiks.games.pdvm.App'
@@ -6,8 +7,17 @@ mainClassName = 'org.atoiks.games.pdvm.App'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
+repositories {
+    jcenter()
+}
+
 dependencies {
+    antlr 'org.antlr:antlr4:4.7.1'
     compile project(':Framework2D')
+}
+
+generateGrammarSource {
+    arguments += ['-package', 'org.atoiks.games.pdvm.grammar']
 }
 
 task copyLicense {
