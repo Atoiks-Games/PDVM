@@ -75,8 +75,13 @@ public class Assembler extends AssemblyBaseListener {
     }
 
     @Override
-    public void enterRegPC(AssemblyParser.RegPCContext ctx) {
+    public void enterRegIP(AssemblyParser.RegIPContext ctx) {
         retByte = 3;
+    }
+
+    @Override
+    public void enterRegSP(AssemblyParser.RegSPContext ctx) {
+        retByte = 4;
     }
 
     @Override

@@ -67,7 +67,8 @@ COMMA: ',';
 OPEN: '(';
 CLOSE: ')';
 
-REG_PC: '%' P C;
+REG_IP: '%' I P;
+REG_SP: '%' S P;
 REG_A: '%' A;
 REG_P: '%' P;
 REG_C: '%' C;
@@ -76,7 +77,8 @@ WS: [ \t\r\n]+ -> Channel(HIDDEN);
 CM: ';' ~[\r\n]* -> Channel(HIDDEN);
 
 register
-    : REG_PC # regPC
+    : REG_IP # regIP
+    | REG_SP # regSP
     | REG_A # regA
     | REG_P # regP
     | REG_C # regC
