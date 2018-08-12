@@ -162,8 +162,17 @@ public class HelpPage extends Scene {
 
     @Override
     public boolean update(final float dt) {
+        if (scene.keyboard().isKeyDown(KeyEvent.VK_CONTROL)) {
+            // Transition into Screen.java
+            if (scene.keyboard().isKeyDown(KeyEvent.VK_ALT) && scene.keyboard().isKeyPressed(KeyEvent.VK_1)) {
+                scene.keyboard().captureTypedChars(false);
+                scene.switchToScene(0);
+                return true;
+            }
+        }
+
         if (scene.keyboard().isKeyPressed(KeyEvent.VK_Q)) {
-            scene.switchToScene(0);
+            scene.switchToScene(1);
             return true;
         }
 
