@@ -75,11 +75,11 @@ public class Core implements Unit {
             case OP_MOD_P: c %= p; break;
             case OP_A2C: c = a; break;
             case OP_P2C: c = p; break;
-            case OP_CH2A: a = (short) (a >> Short.BYTES); break;
-            case OP_CH2P: p = (short) (a >> Short.BYTES); break;
-            case OP_CL2A: c = (short) a; break;
-            case OP_CL2P: c = (short) p; break;
-            case OP_AP2C: c = (a << Short.BYTES) | p; break;
+            case OP_CH2A: a = (short) (c >> Short.SIZE); break;
+            case OP_CH2P: p = (short) (c >> Short.SIZE); break;
+            case OP_CL2A: a = (short) c; break;
+            case OP_CL2P: p = (short) c; break;
+            case OP_AP2C: c = (a << Short.SIZE) | p; break;
             case OP_SEND:
                 if (unit.getCore(p).inputBuffer == null) {
                     // Send value in register A
