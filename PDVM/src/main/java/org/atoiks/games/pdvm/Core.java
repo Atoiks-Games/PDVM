@@ -18,13 +18,15 @@
 
 package org.atoiks.games.pdvm;
 
+import java.nio.ByteBuffer;
+
 import static org.atoiks.games.pdvm.Opcode.*;
 
 public class Core implements Unit {
 
     private final CPU unit;
 
-    private byte[] code = new byte[0];
+    private ByteBuffer code = ByteBuffer.allocateDirect(0);
 
     private Memory mem = null;
 
@@ -42,7 +44,7 @@ public class Core implements Unit {
     }
 
     public void attachCode(final byte[] code) {
-        this.code = code;
+        this.code = ByteBuffer.wrap(code);
     }
 
     @Override
@@ -56,9 +58,9 @@ public class Core implements Unit {
 
     @Override
     public void invokeNext() {
-        if (programCounter >= code.length) return;
+        if (programCounter >= code.capacity()) return;
 
-        final byte op = code[programCounter++];
+        final int op = fetch8Bit();
         switch (op) {
             case OP_HLT: return;
             case OP_ADD_A: c += a; break;
@@ -123,16 +125,16 @@ public class Core implements Unit {
                 break;
             }
             case OP_STHA:
-                mem.data.put(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]), (byte) a);
+                mem.data.put(calculateEffectiveAddress(fetch16Bit(), fetch8Bit()), (byte) a);
                 break;
             case OP_STFA:
-                mem.data.putShort(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]), a);
+                mem.data.putShort(calculateEffectiveAddress(fetch16Bit(), fetch8Bit()), a);
                 break;
             case OP_LDHA:
-                a = mem.data.get(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]));
+                a = mem.data.get(calculateEffectiveAddress(fetch16Bit(), fetch8Bit()));
                 break;
             case OP_LDFA:
-                a = mem.data.getShort(calculateEffectiveAddress(fetch16Bit(), code[programCounter++]));
+                a = mem.data.getShort(calculateEffectiveAddress(fetch16Bit(), fetch8Bit()));
                 break;
             case OP_SWAP: {
                 final short tmp = p;
@@ -145,7 +147,7 @@ public class Core implements Unit {
         }
     }
 
-    private int calculateEffectiveAddress(final int raw, byte k) {
+    private int calculateEffectiveAddress(final int raw, int k) {
         // Behaviour is specified by Opcode.java
         final int regValue = getRegisterValueFromIndex(k & 0x0F);
         switch (k & 0xF0) {
@@ -167,16 +169,22 @@ public class Core implements Unit {
         }
     }
 
+    private int fetch8Bit() {
+        final byte k = code.get(programCounter);
+        programCounter += Byte.BYTES;
+        return Byte.toUnsignedInt(k);
+    }
+
     private int fetch16Bit() {
-        final int hb = Byte.toUnsignedInt(code[programCounter++]);
-        final int lb = Byte.toUnsignedInt(code[programCounter++]);
-        return (hb << Byte.BYTES) | lb;
+        final short k = code.getShort(programCounter);
+        programCounter += Short.BYTES;
+        return Short.toUnsignedInt(k);
     }
 
     private int fetch32Bit() {
-        final int hs = fetch16Bit();
-        final int ls = fetch16Bit();
-        return (hs << Short.BYTES) | ls;
+        final int k = code.getInt(programCounter);
+        programCounter += Integer.BYTES;
+        return k;
     }
 
     @Override
