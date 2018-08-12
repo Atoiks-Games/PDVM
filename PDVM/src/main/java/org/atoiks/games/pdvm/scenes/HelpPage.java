@@ -67,7 +67,7 @@ public class HelpPage extends Scene {
         "rendered based on the data stored in the data memory. To return to the editor interface, press ^-Alt-2. The execution on all",
         "cores will be halted and the current state of all the cores can be examined.",
         "",
-        "The display memory maps from address $0 to $2e6a on the data memory. Each memory cell maps to two consecutive (virtual) pixels",
+        "The display memory maps from address $0 to $2e3d on the data memory. Each memory cell maps to two consecutive (virtual) pixels",
         "on the screen. See the diagram below:",
         "",
         "   $0                             $1",

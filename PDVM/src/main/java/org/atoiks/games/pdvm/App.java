@@ -30,9 +30,8 @@ import org.atoiks.games.pdvm.scenes.*;
 
 public class App {
 
-    // WIDTH:HEIGHT = 4:3
     public static final int WIDTH  = 712;
-    public static final int HEIGHT = 534;
+    public static final int HEIGHT = 532;
 
     public static final Font MONOSPACE_FONT;
 
