@@ -21,6 +21,8 @@ package org.atoiks.games.pdvm.scenes;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
+import java.util.Random;
+
 import org.atoiks.games.framework2d.Scene;
 import org.atoiks.games.framework2d.IGraphics;
 
@@ -36,7 +38,10 @@ public class Screen extends Scene {
     public static final int RD_WIDTH   = WIDTH / PIXEL_SIDE;
     public static final int RD_HEIGHT  = HEIGHT / PIXEL_SIDE;
 
-    public static final int START_VIDMEM = 0x0000;
+    public static final int SYS_RAND_NUM = 0x0000;  // Short.SIZE
+    public static final int SYS_LAST_KEY = 0x0002;  // Short.SIZE
+
+    public static final int START_VIDMEM = 0x0010;
     public static final int END_VIDMEM   = START_VIDMEM + RD_WIDTH * RD_HEIGHT / 2;
 
     // This table must have 16 entries. Bottom row is normally the darker variation of the top row
@@ -44,6 +49,8 @@ public class Screen extends Scene {
         Color.black, Color.white, Color.red, Color.green, Color.blue, Color.magenta, Color.cyan, Color.yellow,
         Color.darkGray, Color.gray, new Color(0x8c, 0x00, 0x00), new Color(0x00, 0x6c, 0x00), new Color(0x00, 0x00, 0x8c), Color.pink, new Color(0x00, 0x8c, 0x8c), Color.orange,
     };
+
+    private final Random rand = new Random();
 
     private Unit unit;
     private Memory mem;
@@ -99,6 +106,12 @@ public class Screen extends Scene {
                 return true;
             }
         }
+
+        // Update system variables if needed
+        mem.data.putShort(SYS_RAND_NUM, (short) rand.nextInt(2 << (Short.SIZE - 1)));
+        mem.data.putShort(SYS_LAST_KEY, (short) scene.keyboard().getLastDownKey());
+
+        unit.invokeNext();
         return true;
     }
 
