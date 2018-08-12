@@ -63,6 +63,35 @@ public class HelpPage extends Scene {
         "^-S invokes the next instruction while ^-Shift-S invokes the next instruction of the CPU. ^-R resets -- clearing out all the",
         "registers -- the current core while ^-Shift-R resets the CPU.",
         "",
+        "Pressing ^-Alt-1 will bring you to the run screen. This is will run the latest build on all cores. In addition, the screen is",
+        "rendered based on the data stored in the data memory. To return to the editor interface, press ^-Alt-2. The execution on all",
+        "cores will be halted and the current state of all the cores can be examined.",
+        "",
+        "The display memory maps from address $0010 to $2e4d (exclusive) on the data memory. Each memory cell maps to two consecutive",
+        "(virtual) pixels on the screen. See the diagram below:",
+        "",
+        "   $0                             $1",
+        "    +------------------------------+",
+        "    | Lower 4 bits | Higher 4 bits |",
+        "    +------------------------------+",
+        "",
+        "At this particular address, the higher 4 bits is defines the color of the first pixel (0, 0) while the lower 4 bits defines the",
+        "second pixel (1, 0). There are 16 color options for coloring the pixels. They are:",
+        "Black   - $0, Dark gray  - $8",
+        "White   - $1, Gray       - $9",
+        "Red     - $2, Dark red   - $a",
+        "Green   - $3, Dark Green - $b",
+        "Blue    - $4, Dark blue  - $c",
+        "Magenta - $5, Pink       - $d",
+        "Cyan    - $6, Dark cyan  - $e",
+        "Yellow  - $7, Orange     - $f",
+        "",
+        "The first row of pixels correspond from address $0010 to $0069 (exclusive).",
+        "",
+        "The data memory also contains values provided by the runtime. See below table:",
+        "$0000-$0002 - 16 bit random number",
+        "$0002-$0004 - 16 bit keycode of last pressed key",
+        "",
         "The assembler does not perform any sensible error handling. For example, when an unrecognized text is reached, the assembler",
         "treats it as if the code ended there and assembles the code based on the content before that errornous token. Labels are only",
         "supported by the branching instruction and will most likely crash the assembler if appeared anywhere else. To declare a label,",
@@ -162,8 +191,17 @@ public class HelpPage extends Scene {
 
     @Override
     public boolean update(final float dt) {
+        if (scene.keyboard().isKeyDown(KeyEvent.VK_CONTROL)) {
+            // Transition into Screen.java
+            if (scene.keyboard().isKeyDown(KeyEvent.VK_ALT) && scene.keyboard().isKeyPressed(KeyEvent.VK_1)) {
+                scene.keyboard().captureTypedChars(false);
+                scene.switchToScene(0);
+                return true;
+            }
+        }
+
         if (scene.keyboard().isKeyPressed(KeyEvent.VK_Q)) {
-            scene.switchToScene(0);
+            scene.switchToScene(1);
             return true;
         }
 

@@ -129,6 +129,13 @@ public class CPUState extends Scene {
         }
 
         if (scene.keyboard().isKeyDown(KeyEvent.VK_CONTROL)) {
+            // Transition into Screen.java
+            if (scene.keyboard().isKeyDown(KeyEvent.VK_ALT) && scene.keyboard().isKeyPressed(KeyEvent.VK_1)) {
+                scene.keyboard().captureTypedChars(false);
+                scene.switchToScene(0);
+                return true;
+            }
+
             // Get help
             if (scene.keyboard().isKeyPressed(KeyEvent.VK_H)) {
                 scene.keyboard().captureTypedChars(false);

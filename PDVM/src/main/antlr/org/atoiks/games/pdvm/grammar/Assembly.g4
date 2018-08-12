@@ -128,7 +128,7 @@ immediate
     ;
 
 memory
-    : OPEN (NUMBER | indirectY) CLOSE
+    : OPEN (n=NUMBER | indirectY) CLOSE
     | OPEN indirect CLOSE
     | OPEN indirectX CLOSE
     ;

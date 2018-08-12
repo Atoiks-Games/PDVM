@@ -30,9 +30,8 @@ import org.atoiks.games.pdvm.scenes.*;
 
 public class App {
 
-    // WIDTH:HEIGHT = 4:3
     public static final int WIDTH  = 712;
-    public static final int HEIGHT = 534;
+    public static final int HEIGHT = 532;
 
     public static final Font MONOSPACE_FONT;
 
@@ -53,7 +52,7 @@ public class App {
                 .setFps(24f)
                 .setResizable(false)
                 .setSize(WIDTH + (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0 ? 12 : 0), HEIGHT)
-                .setScenes(new CPUState(), new HelpPage());
+                .setScenes(new Screen(), new CPUState(), new HelpPage());
         processResources(info);
         try (final Frame frame = new Frame(info)) {
             frame.init();
