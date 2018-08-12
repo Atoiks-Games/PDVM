@@ -194,8 +194,8 @@ public class Core implements Unit {
             case 0:  return a;
             case 1:  return p;
             case 2:  return c;
-            case 3:  return stackPointer;
-            case 4:  return instrPointer;
+            case 3:  return instrPointer;
+            case 4:  return stackPointer;
             default: return -1;
         }
     }
