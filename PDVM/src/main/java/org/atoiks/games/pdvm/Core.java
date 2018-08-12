@@ -64,7 +64,7 @@ public class Core implements Unit {
 
         final int op = fetch8Bit();
         switch (op) {
-            case OP_HLT: return;
+            case OP_HLT: --instrPointer; return;
             case OP_ADD_A: c += a; break;
             case OP_ADD_P: c += p; break;
             case OP_SUB_A: c -= a; break;
@@ -144,6 +144,34 @@ public class Core implements Unit {
                 a = tmp;
                 break;
             }
+            case OP_PHC:
+                mem.data.putInt(stackPointer, c);
+                stackPointer += Integer.BYTES;
+                break;
+            case OP_PPC:
+                stackPointer -= Integer.BYTES;
+                c = mem.data.getInt(stackPointer);
+                break;
+            case OP_RET:
+                stackPointer -= Integer.BYTES;
+                instrPointer = mem.data.getInt(stackPointer);
+                break;
+            case OP_JSR: {
+                final int newIp = fetch32Bit();
+                mem.data.putInt(stackPointer, instrPointer);
+                stackPointer += Integer.BYTES;
+                instrPointer = newIp;
+                break;
+            }
+            case OP_C2S: instrPointer = c; break;
+            case OP_S2C: c = instrPointer; break;
+            case OP_SWSC: {
+                final int tmp = c;
+                c = instrPointer;
+                instrPointer = tmp;
+                break;
+            }
+            case OP_LDS: stackPointer = fetch32Bit(); break;
             default:
                 throw new IllegalStateException("PANIC: Unknown opcode " + op);
         }

@@ -71,6 +71,22 @@ public final class Opcode {
     // <op>
     public static final byte OP_SWAP = 0x1F;
 
+    // <op>
+    public static final byte OP_PHC = 0x20;
+    public static final byte OP_PPC = 0x21;
+    public static final byte OP_RET = 0x22;
+
+    // <op> <32 bit>
+    public static final byte OP_JSR = 0x23;
+
+    // <op>
+    public static final byte OP_C2S = 0x24;
+    public static final byte OP_S2C = 0x25;
+    public static final byte OP_SWSC = 0x26;
+
+    // <op> <32 bit>
+    public static final byte OP_LDS = 0x27;
+
     private Opcode() {
         //
     }

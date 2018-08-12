@@ -62,6 +62,14 @@ OP_STFA: S T F A;
 OP_LDHA: L D H A;
 OP_LDFA: L D F A;
 OP_SWAP: S W A P;
+OP_PHC: P H C;
+OP_PPC: P P C;
+OP_RET: R E T;
+OP_JSR: J S R;
+OP_C2S: C '2' S;
+OP_S2C: S '2' C;
+OP_SWSC: S W S C;
+OP_LDS: L D S;
 
 COMMA: ',';
 OPEN: '(';
@@ -121,6 +129,14 @@ opline
     | OP_LDHA memory # opLdha
     | OP_LDFA memory # opLdfa
     | OP_SWAP # opSwap
+    | OP_PHC # opPhc
+    | OP_PPC # opPpc
+    | OP_RET # opRet
+    | OP_JSR immediate # opJsr
+    | OP_C2S # opC2S
+    | OP_S2C # opS2C
+    | OP_SWSC # opSwsc
+    | OP_LDS immediate # opLds
     | LABEL # defLabel
     ;
 

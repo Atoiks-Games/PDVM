@@ -447,6 +447,90 @@ public class Assembler extends AssemblyBaseListener {
     }
 
     @Override
+    public void enterOpPhc(AssemblyParser.OpPhcContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES;
+        } else {
+            code.put(OP_PHC);
+        }
+    }
+
+    @Override
+    public void enterOpPpc(AssemblyParser.OpPpcContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES;
+        } else {
+            code.put(OP_PPC);
+        }
+    }
+
+    @Override
+    public void enterOpRet(AssemblyParser.OpRetContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES;
+        } else {
+            code.put(OP_RET);
+        }
+    }
+
+    @Override
+    public void enterOpJsr(AssemblyParser.OpJsrContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Integer.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpJsr(AssemblyParser.OpJsrContext ctx) {
+        if (code != null) {
+            code.put(OP_JSR);
+            code.putInt(retInt);
+        }
+    }
+
+    @Override
+    public void enterOpC2S(AssemblyParser.OpC2SContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES;
+        } else {
+            code.put(OP_C2S);
+        }
+    }
+
+    @Override
+    public void enterOpS2C(AssemblyParser.OpS2CContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES;
+        } else {
+            code.put(OP_S2C);
+        }
+    }
+
+    @Override
+    public void enterOpSwsc(AssemblyParser.OpSwscContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES;
+        } else {
+            code.put(OP_SWSC);
+        }
+    }
+
+    @Override
+    public void enterOpLds(AssemblyParser.OpLdsContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Integer.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpLds(AssemblyParser.OpLdsContext ctx) {
+        if (code != null) {
+            code.put(OP_LDS);
+            code.putInt(retInt);
+        }
+    }
+
+    @Override
     public void enterDefLabel(AssemblyParser.DefLabelContext ctx) {
         if (code == null) {
             lbladdr.put(ctx.getText(), address);
