@@ -64,7 +64,7 @@ public class Core implements Unit {
 
         final int op = fetch8Bit();
         switch (op) {
-            case OP_HLT: return;
+            case OP_HLT: --instrPointer; return;
             case OP_ADD_A: c += a; break;
             case OP_ADD_P: c += p; break;
             case OP_SUB_A: c -= a; break;
@@ -156,11 +156,13 @@ public class Core implements Unit {
                 stackPointer -= Integer.BYTES;
                 instrPointer = mem.data.getInt(stackPointer);
                 break;
-            case OP_JSR:
+            case OP_JSR: {
+                final int newIp = fetch32Bit();
                 mem.data.putInt(stackPointer, instrPointer);
                 stackPointer += Integer.BYTES;
-                instrPointer = fetch32Bit();
+                instrPointer = newIp;
                 break;
+            }
             case OP_C2S: instrPointer = c; break;
             case OP_S2C: c = instrPointer; break;
             case OP_SWSC: {
