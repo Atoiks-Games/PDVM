@@ -42,13 +42,18 @@ public class Screen extends Scene {
     public static final int SYS_LAST_KEY = 0x0002;  // Short.SIZE
 
     public static final int START_VIDMEM = 0x0010;
-    public static final int END_VIDMEM   = START_VIDMEM + RD_WIDTH * RD_HEIGHT / 2;
+    public static final int END_VIDMEM   = START_VIDMEM + RD_WIDTH * RD_HEIGHT;
 
-    // This table must have 16 entries. Bottom row is normally the darker variation of the top row
-    private static final Color[] colorTable = {
-        Color.black, Color.white, Color.red, Color.green, Color.blue, Color.magenta, Color.cyan, Color.yellow,
-        Color.darkGray, Color.gray, new Color(0x8c, 0x00, 0x00), new Color(0x00, 0x6c, 0x00), new Color(0x00, 0x00, 0x8c), Color.pink, new Color(0x00, 0x8c, 0x8c), Color.orange,
-    };
+    // This table must have 256 entries. Each color works like this: (0bRRRGGGBB)
+    // (populate this array in static constructor)
+    public static final int MAX_COLORS = 256;
+    private static final Color[] colorTable = new Color[MAX_COLORS];
+
+    static {
+        for (int i = 0; i < MAX_COLORS; ++i) {
+            colorTable[i] = new Color((i >> 5) * 32, ((i & 28) >> 2) * 32, (i & 3) * 64);
+        }
+    }
 
     private final Random rand = new Random();
 
@@ -70,30 +75,10 @@ public class Screen extends Scene {
         g.setClearColor(Color.black);
         g.clearGraphics();
 
-        for (int offset = START_VIDMEM, i = 0; offset < END_VIDMEM; ++offset, i += 2) {
-            final byte value = mem.data.get(offset);
-            final int lb = value & 0xF;
-            final int hb = (value & 0xF0) >> Byte.SIZE / 2;
-
-            // Technically, the high byte goes first if we draw from left to right
-            g.setColor(colorTable[hb]);
-            final int x1 = i % RD_WIDTH;
-            final int y1 = i / RD_WIDTH;
-            paintReducedPixel(g, x1, y1);
-
-            g.setColor(colorTable[lb]);
-            final int x2 = (i + 1) % RD_WIDTH;
-            final int y2 = (i + 1) / RD_WIDTH;
-            paintReducedPixel(g, x2, y2);
+        for (int offset = START_VIDMEM, i = 0; offset < END_VIDMEM; ++offset, ++i) {
+            g.setColor(colorTable[Byte.toUnsignedInt(mem.data.get(offset))]);
+            paintReducedPixel(g, i % RD_WIDTH, i / RD_WIDTH);
         }
-
-        // // The following section prints out all the possible colors, in rows of 8
-        // for (int i = 0; i < colorTable.length; ++i) {
-        //     g.setColor(colorTable[i]);
-        //     final int x = i % 8;
-        //     final int y = i / 8;
-        //     paintReducedPixel(g, x, y);
-        // }
     }
 
     private void paintReducedPixel(final IGraphics g, final int px, final int py) {
