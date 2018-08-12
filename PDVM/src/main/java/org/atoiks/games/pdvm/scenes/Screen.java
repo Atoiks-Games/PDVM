@@ -55,6 +55,8 @@ public class Screen extends Scene {
     private Unit unit;
     private Memory mem;
 
+    private int lastKeySave;
+
     @Override
     public void enter(int from) {
         if (this.unit == null) {
@@ -109,7 +111,10 @@ public class Screen extends Scene {
 
         // Update system variables if needed
         mem.data.putShort(SYS_RAND_NUM, (short) rand.nextInt(2 << (Short.SIZE - 1)));
-        mem.data.putShort(SYS_LAST_KEY, (short) scene.keyboard().getLastDownKey());
+        final int k = scene.keyboard().getLastDownKey();
+        if (!scene.keyboard().isKeyDown(lastKeySave)) {
+            mem.data.putShort(SYS_LAST_KEY, (short) (lastKeySave = k));
+        }
 
         unit.invokeNext();
         return true;
