@@ -144,6 +144,32 @@ public class Core implements Unit {
                 a = tmp;
                 break;
             }
+            case OP_PHC:
+                mem.data.putInt(stackPointer, c);
+                stackPointer += Integer.BYTES;
+                break;
+            case OP_PPC:
+                stackPointer -= Integer.BYTES;
+                c = mem.data.getInt(stackPointer);
+                break;
+            case OP_RET:
+                stackPointer -= Integer.BYTES;
+                instrPointer = mem.data.getInt(stackPointer);
+                break;
+            case OP_JSR:
+                mem.data.putInt(stackPointer, instrPointer);
+                stackPointer += Integer.BYTES;
+                instrPointer = fetch32Bit();
+                break;
+            case OP_C2S: instrPointer = c; break;
+            case OP_S2C: c = instrPointer; break;
+            case OP_SWSC: {
+                final int tmp = c;
+                c = instrPointer;
+                instrPointer = tmp;
+                break;
+            }
+            case OP_LDS: stackPointer = fetch32Bit(); break;
             default:
                 throw new IllegalStateException("PANIC: Unknown opcode " + op);
         }
