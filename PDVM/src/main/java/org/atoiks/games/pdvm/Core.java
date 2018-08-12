@@ -37,7 +37,8 @@ public class Core implements Unit {
     public short a;
     public short p;
     public int c;
-    public int programCounter;
+    public int stackPointer;
+    public int instrPointer;
 
     public Core(final CPU unit) {
         this.unit = unit;
@@ -53,12 +54,13 @@ public class Core implements Unit {
         a = 0;
         p = 0;
         c = 0;
-        programCounter = 0;
+        stackPointer = 0;
+        instrPointer = 0;
     }
 
     @Override
     public void invokeNext() {
-        if (programCounter >= code.capacity()) return;
+        if (instrPointer >= code.capacity()) return;
 
         final int op = fetch8Bit();
         switch (op) {
@@ -87,14 +89,14 @@ public class Core implements Unit {
                 } else {
                     // Value already exists.
                     // Rewind PC, this operation blocks
-                    --programCounter;
+                    --instrPointer;
                 }
                 break;
             case OP_RECV:
                 if (this.inputBuffer == null) {
                     // Waits for other core to send value
                     // Rewind PC, this operation blocks
-                    --programCounter;
+                    --instrPointer;
                 } else {
                     // Store value into register A
                     a = this.inputBuffer;
@@ -103,25 +105,25 @@ public class Core implements Unit {
                 break;
             case OP_LDA: a = (short) fetch16Bit(); break;
             case OP_LDP: p = (short) fetch16Bit(); break;
-            case OP_JMP: programCounter = fetch32Bit(); break;
+            case OP_JMP: instrPointer = fetch32Bit(); break;
             case OP_JALP: {
                 final int addr = fetch32Bit();
-                if (a < p) programCounter = addr;
+                if (a < p) instrPointer = addr;
                 break;
             }
             case OP_JAGP: {
                 final int addr = fetch32Bit();
-                if (a > p) programCounter = addr;
+                if (a > p) instrPointer = addr;
                 break;
             }
             case OP_JAEP: {
                 final int addr = fetch32Bit();
-                if (a == p) programCounter = addr;
+                if (a == p) instrPointer = addr;
                 break;
             }
             case OP_JANP: {
                 final int addr = fetch32Bit();
-                if (a != p) programCounter = addr;
+                if (a != p) instrPointer = addr;
                 break;
             }
             case OP_STHA:
@@ -164,26 +166,27 @@ public class Core implements Unit {
             case 0:  return a;
             case 1:  return p;
             case 2:  return c;
-            case 3:  return programCounter;
+            case 3:  return stackPointer;
+            case 4:  return instrPointer;
             default: return -1;
         }
     }
 
     private int fetch8Bit() {
-        final byte k = code.get(programCounter);
-        programCounter += Byte.BYTES;
+        final byte k = code.get(instrPointer);
+        instrPointer += Byte.BYTES;
         return Byte.toUnsignedInt(k);
     }
 
     private int fetch16Bit() {
-        final short k = code.getShort(programCounter);
-        programCounter += Short.BYTES;
+        final short k = code.getShort(instrPointer);
+        instrPointer += Short.BYTES;
         return Short.toUnsignedInt(k);
     }
 
     private int fetch32Bit() {
-        final int k = code.getInt(programCounter);
-        programCounter += Integer.BYTES;
+        final int k = code.getInt(instrPointer);
+        instrPointer += Integer.BYTES;
         return k;
     }
 

@@ -81,10 +81,11 @@ public class CPUState extends Scene {
         g.drawString("A:  " + core.a, 15, 15 + 1 * MONOSPACE_FONT.getSize());
         g.drawString("P:  " + core.p, 15, 15 + 2 * MONOSPACE_FONT.getSize());
         g.drawString("C:  " + core.c, 15, 15 + 3 * MONOSPACE_FONT.getSize());
-        g.drawString("PC: " + core.programCounter, 15, 15 + 4 * MONOSPACE_FONT.getSize());
-        g.drawString("IB: " + core.inputBuffer, 15, 15 + 5 * MONOSPACE_FONT.getSize());
+        g.drawString("SP: " + core.stackPointer, 15, 15 + 4 * MONOSPACE_FONT.getSize());
+        g.drawString("IP: " + core.instrPointer, 15, 15 + 5 * MONOSPACE_FONT.getSize());
+        g.drawString("IB: " + core.inputBuffer, 15, 15 + 6 * MONOSPACE_FONT.getSize());
 
-        g.drawString("^-H for manual", 10, 15 + 8 * MONOSPACE_FONT.getSize());
+        g.drawString("^-H for manual", 10, 15 + 9 * MONOSPACE_FONT.getSize());
 
         g.drawLine(EDITOR_START_X, 0, EDITOR_START_X, HEIGHT);
 
