@@ -79,7 +79,7 @@ public class Core implements Unit {
             case OP_CH2P: p = (short) (c >> Short.SIZE); break;
             case OP_CL2A: a = (short) c; break;
             case OP_CL2P: p = (short) c; break;
-            case OP_AP2C: c = (a << Short.SIZE) | p; break;
+            case OP_AP2C: c = (a << Short.SIZE) | Short.toUnsignedInt(p); break;
             case OP_SEND:
                 if (unit.getCore(p).inputBuffer == null) {
                     // Send value in register A
