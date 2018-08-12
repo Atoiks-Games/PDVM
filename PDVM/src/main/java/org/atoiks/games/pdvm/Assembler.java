@@ -460,6 +460,13 @@ public class Assembler extends AssemblyBaseListener {
     }
 
     @Override
+    public void enterMemory(AssemblyParser.MemoryContext ctx) {
+        if (ctx.n != null) {
+            retShort = (short) numberTextToInt(ctx.n.getText());
+        }
+    }
+
+    @Override
     public void exitIndirect(AssemblyParser.IndirectContext ctx) {
         retShort = (short) numberTextToInt(ctx.addr.getText());
         retByte += 0x10;
