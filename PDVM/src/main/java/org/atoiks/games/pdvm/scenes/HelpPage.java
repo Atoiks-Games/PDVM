@@ -49,7 +49,7 @@ public class HelpPage extends Scene {
         "Register C is the calculation register. It is impossible to perform a numerical calculation without involving this register.",
         "Each core also contains a input buffer. This buffer can only store one value, and its state is either filled or empty.",
         "",
-        "The PDVM debugging interface provides you with 65536 bytes of random accessible data memory. This memory is separate from each",
+        "The PDVM debugging interface provides you with 2^24 bytes of random accessible data memory. This memory is separate from each",
         "core's code memory. Since there is no way to load or store values onto the code memory, self modifying code is impossible. The",
         "data memory is shared across all cores.",
         "",
