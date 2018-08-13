@@ -152,7 +152,6 @@ public class Core implements Unit {
                 break;
             }
             case OP_C2S: stackPointer = c; break;
-            case OP_S2C: c = stackPointer; break;
             case OP_SWSC: {
                 final int tmp = c;
                 c = stackPointer;

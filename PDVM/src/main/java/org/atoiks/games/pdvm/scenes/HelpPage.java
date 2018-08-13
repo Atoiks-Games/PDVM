@@ -117,7 +117,6 @@ public class HelpPage extends Scene {
         "ret           - Pops from stack and jumps to it, decrements stack pointer, used with jsr",
         "jsr  <imm:32> - Branches execution and saves the return address, increments stack pointer, used with ret",
         "c2s           - Stores register C's value into stack pointer",
-        "s2c           - Stores stack pointer's value into register",
         "swsc          - Swaps value of stack pointer and register C",
         "lds  <imm:32> - Stores an immediate value into stack pointer",
         "",

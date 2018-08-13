@@ -390,15 +390,6 @@ public class Assembler extends AssemblyBaseListener {
     }
 
     @Override
-    public void enterOpS2C(AssemblyParser.OpS2CContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES;
-        } else {
-            code.put(OP_S2C);
-        }
-    }
-
-    @Override
     public void enterOpSwsc(AssemblyParser.OpSwscContext ctx) {
         if (code == null) {
             address += Byte.BYTES;

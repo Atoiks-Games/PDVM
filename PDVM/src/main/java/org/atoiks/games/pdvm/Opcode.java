@@ -80,8 +80,7 @@ public final class Opcode {
 
     // <op>
     public static final byte OP_C2S = 0x1A;
-    public static final byte OP_S2C = 0x1B;
-    public static final byte OP_SWSC = 0x1C;
+    public static final byte OP_SWSC = 0x1B;
 
     private Opcode() {
         //
