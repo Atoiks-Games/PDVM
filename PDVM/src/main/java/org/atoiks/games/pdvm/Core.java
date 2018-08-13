@@ -151,12 +151,12 @@ public class Core implements Unit {
                 instrPointer = newIp;
                 break;
             }
-            case OP_C2S: instrPointer = c; break;
-            case OP_S2C: c = instrPointer; break;
+            case OP_C2S: stackPointer = c; break;
+            case OP_S2C: c = stackPointer; break;
             case OP_SWSC: {
                 final int tmp = c;
-                c = instrPointer;
-                instrPointer = tmp;
+                c = stackPointer;
+                stackPointer = tmp;
                 break;
             }
             case OP_LDS: stackPointer = fetch32Bit(); break;
