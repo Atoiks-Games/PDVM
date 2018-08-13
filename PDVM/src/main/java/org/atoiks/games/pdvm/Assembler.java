@@ -531,6 +531,96 @@ public class Assembler extends AssemblyBaseListener {
     }
 
     @Override
+    public void enterOpAdd(AssemblyParser.OpAddContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpAdd(AssemblyParser.OpAddContext ctx) {
+        if (code != null) {
+            code.put(OP_ALU);
+            code.put((byte) (0x00 | retByte));
+        }
+    }
+
+    @Override
+    public void enterOpSub(AssemblyParser.OpSubContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpSub(AssemblyParser.OpSubContext ctx) {
+        if (code != null) {
+            code.put(OP_ALU);
+            code.put((byte) (0x10 | retByte));
+        }
+    }
+
+    @Override
+    public void enterOpMul(AssemblyParser.OpMulContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpMul(AssemblyParser.OpMulContext ctx) {
+        if (code != null) {
+            code.put(OP_ALU);
+            code.put((byte) (0x20 | retByte));
+        }
+    }
+
+    @Override
+    public void enterOpDiv(AssemblyParser.OpDivContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpDiv(AssemblyParser.OpDivContext ctx) {
+        if (code != null) {
+            code.put(OP_ALU);
+            code.put((byte) (0x30 | retByte));
+        }
+    }
+
+    @Override
+    public void enterOpMod(AssemblyParser.OpModContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpMod(AssemblyParser.OpModContext ctx) {
+        if (code != null) {
+            code.put(OP_ALU);
+            code.put((byte) (0x40 | retByte));
+        }
+    }
+
+    @Override
+    public void enterOpM2C(AssemblyParser.OpM2CContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpM2C(AssemblyParser.OpM2CContext ctx) {
+        if (code != null) {
+            code.put(OP_ALU);
+            code.put((byte) (0x50 | retByte));
+        }
+    }
+
+    @Override
     public void enterDefLabel(AssemblyParser.DefLabelContext ctx) {
         if (code == null) {
             lbladdr.put(ctx.getText(), address);

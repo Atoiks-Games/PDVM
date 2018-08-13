@@ -70,6 +70,12 @@ OP_C2S: C '2' S;
 OP_S2C: S '2' C;
 OP_SWSC: S W S C;
 OP_LDS: L D S;
+OP_ADD: A D D;
+OP_SUB: S U B;
+OP_MUL: M U L;
+OP_DIV: D I V;
+OP_MOD: M O D;
+OP_M2C: M '2' C;
 
 COMMA: ',';
 OPEN: '(';
@@ -137,6 +143,12 @@ opline
     | OP_S2C # opS2C
     | OP_SWSC # opSwsc
     | OP_LDS immediate # opLds
+    | OP_ADD register # opAdd
+    | OP_SUB register # opSub
+    | OP_MUL register # opMul
+    | OP_DIV register # opDiv
+    | OP_MOD register # opMod
+    | OP_M2C register # opM2C
     | LABEL # defLabel
     ;
 
