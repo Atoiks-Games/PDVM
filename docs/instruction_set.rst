@@ -407,6 +407,7 @@ In syntax section above, ``%?`` means a register. The registers can be (case ins
 * ``%sp`` which has value of 4
 
 The numerical constants used in immediate mode can be:
+
 * ``123`` which has value of 123
 * ``$ff`` which has value of 255
 * ``:lb`` which is a label and value depende on where it is placed
