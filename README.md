@@ -11,4 +11,4 @@ That will bring you to a black screen.
 If you are stuck:
 
 1. Press Ctrl-Alt-1 (Control-Option-1), that brings you to the debugger / code editor
-2. press Ctrl-H (Control-H), that brings you to the help page.
+2. press Ctrl-H (Control-H), that brings you to the help page
