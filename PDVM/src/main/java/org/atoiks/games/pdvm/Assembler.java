@@ -94,114 +94,6 @@ public class Assembler extends AssemblyBaseListener {
     }
 
     @Override
-    public void enterOpAddA(AssemblyParser.OpAddAContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES;
-        } else {
-            code.put(OP_ADD_A);
-        }
-    }
-
-    @Override
-    public void enterOpAddP(AssemblyParser.OpAddPContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES;
-        } else {
-            code.put(OP_ADD_P);
-        }
-    }
-
-    @Override
-    public void enterOpSubA(AssemblyParser.OpSubAContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES;
-        } else {
-            code.put(OP_SUB_A);
-        }
-    }
-
-    @Override
-    public void enterOpSubP(AssemblyParser.OpSubPContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES;
-        } else {
-            code.put(OP_SUB_P);
-        }
-    }
-
-    @Override
-    public void enterOpMulA(AssemblyParser.OpMulAContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES;
-        } else {
-            code.put(OP_MUL_A);
-        }
-    }
-
-    @Override
-    public void enterOpMulP(AssemblyParser.OpMulPContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES;
-        } else {
-            code.put(OP_MUL_P);
-        }
-    }
-
-    @Override
-    public void enterOpDivA(AssemblyParser.OpDivAContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES;
-        } else {
-            code.put(OP_DIV_A);
-        }
-    }
-
-    @Override
-    public void enterOpDivP(AssemblyParser.OpDivPContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES;
-        } else {
-            code.put(OP_DIV_P);
-        }
-    }
-
-    @Override
-    public void enterOpModA(AssemblyParser.OpModAContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES;
-        } else {
-            code.put(OP_MOD_A);
-        }
-    }
-
-    @Override
-    public void enterOpModP(AssemblyParser.OpModPContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES;
-        } else {
-            code.put(OP_MOD_P);
-        }
-    }
-
-    @Override
-    public void enterOpA2C(AssemblyParser.OpA2CContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES;
-        } else {
-            code.put(OP_A2C);
-        }
-    }
-
-    @Override
-    public void enterOpP2C(AssemblyParser.OpP2CContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES;
-        } else {
-            code.put(OP_P2C);
-        }
-    }
-
-    @Override
     public void enterOpCh2a(AssemblyParser.OpCh2aContext ctx) {
         if (code == null) {
             address += Byte.BYTES;
@@ -527,6 +419,96 @@ public class Assembler extends AssemblyBaseListener {
         if (code != null) {
             code.put(OP_LDS);
             code.putInt(retInt);
+        }
+    }
+
+    @Override
+    public void enterOpAdd(AssemblyParser.OpAddContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpAdd(AssemblyParser.OpAddContext ctx) {
+        if (code != null) {
+            code.put(OP_ALU);
+            code.put((byte) (0x00 | retByte));
+        }
+    }
+
+    @Override
+    public void enterOpSub(AssemblyParser.OpSubContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpSub(AssemblyParser.OpSubContext ctx) {
+        if (code != null) {
+            code.put(OP_ALU);
+            code.put((byte) (0x10 | retByte));
+        }
+    }
+
+    @Override
+    public void enterOpMul(AssemblyParser.OpMulContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpMul(AssemblyParser.OpMulContext ctx) {
+        if (code != null) {
+            code.put(OP_ALU);
+            code.put((byte) (0x20 | retByte));
+        }
+    }
+
+    @Override
+    public void enterOpDiv(AssemblyParser.OpDivContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpDiv(AssemblyParser.OpDivContext ctx) {
+        if (code != null) {
+            code.put(OP_ALU);
+            code.put((byte) (0x30 | retByte));
+        }
+    }
+
+    @Override
+    public void enterOpMod(AssemblyParser.OpModContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpMod(AssemblyParser.OpModContext ctx) {
+        if (code != null) {
+            code.put(OP_ALU);
+            code.put((byte) (0x40 | retByte));
+        }
+    }
+
+    @Override
+    public void enterOpM2C(AssemblyParser.OpM2CContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpM2C(AssemblyParser.OpM2CContext ctx) {
+        if (code != null) {
+            code.put(OP_ALU);
+            code.put((byte) (0x50 | retByte));
         }
     }
 

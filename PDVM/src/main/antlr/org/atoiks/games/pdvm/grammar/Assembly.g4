@@ -31,18 +31,6 @@ LABEL:  ':' [a-zA-Z0-9_]*;
 NUMBER: [0-9]+ | '$' [0-9A-Fa-f]+;
 
 OP_HLT: H L T;
-OP_ADD_A: A D D '_' A;
-OP_ADD_P: A D D '_' P;
-OP_SUB_A: S U B '_' A;
-OP_SUB_P: S U B '_' P;
-OP_MUL_A: M U L '_' A;
-OP_MUL_P: M U L '_' P;
-OP_DIV_A: D I V '_' A;
-OP_DIV_P: D I V '_' P;
-OP_MOD_A: M O D '_' A;
-OP_MOD_P: M O D '_' P;
-OP_A2C: A '2' C;
-OP_P2C: P '2' C;
 OP_CH2A: C H '2' A;
 OP_CH2P: C H '2' P;
 OP_CL2A: C L '2' A;
@@ -70,6 +58,12 @@ OP_C2S: C '2' S;
 OP_S2C: S '2' C;
 OP_SWSC: S W S C;
 OP_LDS: L D S;
+OP_ADD: A D D;
+OP_SUB: S U B;
+OP_MUL: M U L;
+OP_DIV: D I V;
+OP_MOD: M O D;
+OP_M2C: M '2' C;
 
 COMMA: ',';
 OPEN: '(';
@@ -98,18 +92,6 @@ program
 
 opline
     : OP_HLT # opHlt
-    | OP_ADD_A # opAddA
-    | OP_ADD_P # opAddP
-    | OP_SUB_A # opSubA
-    | OP_SUB_P # opSubP
-    | OP_MUL_A # opMulA
-    | OP_MUL_P # opMulP
-    | OP_DIV_A # opDivA
-    | OP_DIV_P # opDivP
-    | OP_MOD_A # opModA
-    | OP_MOD_P # opModP
-    | OP_A2C # opA2C
-    | OP_P2C # opP2C
     | OP_CH2A # opCh2a
     | OP_CH2P # opCh2p
     | OP_CL2A # opCl2a
@@ -137,6 +119,12 @@ opline
     | OP_S2C # opS2C
     | OP_SWSC # opSwsc
     | OP_LDS immediate # opLds
+    | OP_ADD register # opAdd
+    | OP_SUB register # opSub
+    | OP_MUL register # opMul
+    | OP_DIV register # opDiv
+    | OP_MOD register # opMod
+    | OP_M2C register # opM2C
     | LABEL # defLabel
     ;
 
