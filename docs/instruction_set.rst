@@ -83,7 +83,8 @@ Parameters
 ------------------------
 
 +----------+--------------------------------------------------------------------------------+
-| register | Any register. The registers can be %a, %p, %c, %sp or %ip (case insensitive)   |
+| register | Any register. The registers can be ``%a``, ``%p``, ``%c``, ``%sp`` or ``%ip``  |
+|          | (case insensitive)                                                             |
 +----------+--------------------------------------------------------------------------------+
 | imm:16   | A 16 bit immediate value, will truncate value if greater. Examples are base 10 |
 |          | ints ``123``, base 16 ints ``$1f`` and labels ``:loop``                        |
