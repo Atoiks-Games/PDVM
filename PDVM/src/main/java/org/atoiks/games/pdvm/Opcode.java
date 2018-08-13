@@ -24,20 +24,6 @@ public final class Opcode {
     public static final byte OP_HLT = 0x0;
 
     // <op>
-    public static final byte OP_ADD_A = 0x1;
-    public static final byte OP_ADD_P = 0x2;
-    public static final byte OP_SUB_A = 0x3;
-    public static final byte OP_SUB_P = 0x4;
-    public static final byte OP_MUL_A = 0x5;
-    public static final byte OP_MUL_P = 0x6;
-    public static final byte OP_DIV_A = 0x7;
-    public static final byte OP_DIV_P = 0x8;
-    public static final byte OP_MOD_A = 0x9;
-    public static final byte OP_MOD_P = 0xA;
-
-    // <op>
-    public static final byte OP_A2C  = 0xB;
-    public static final byte OP_P2C  = 0xC;
     public static final byte OP_CH2A = 0xD;
     public static final byte OP_CH2P = 0xE;
     public static final byte OP_CL2A = 0xF;
