@@ -87,6 +87,14 @@ public final class Opcode {
     // <op> <32 bit>
     public static final byte OP_LDS = 0x27;
 
+    // <op> <0x0[reg]> => c = c + R
+    // <op> <0x1[reg]> => c = c - R
+    // <op> <0x2[reg]> => c = c * R
+    // <op> <0x3[reg]> => c = c / R
+    // <op> <0x4[reg]> => c = c % R
+    // <op> <0x5[reg]> => c = R
+    public static final byte OP_ALU = 0x28;
+
     private Opcode() {
         //
     }

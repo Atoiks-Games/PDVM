@@ -172,8 +172,23 @@ public class Core implements Unit {
                 break;
             }
             case OP_LDS: stackPointer = fetch32Bit(); break;
+            case OP_ALU: c = handleALU(fetch8Bit()); break;
             default:
                 throw new IllegalStateException("PANIC: Unknown opcode " + op);
+        }
+    }
+
+    private int handleALU(final int k) {
+        // Behaviour is specified by Opcode.java
+        final int regValue = getRegisterValueFromIndex(k & 0x0F);
+        switch (k & 0xF0) {
+            case 0x00: return c + regValue;
+            case 0x10: return c - regValue;
+            case 0x20: return c * regValue;
+            case 0x30: return c / regValue;
+            case 0x40: return c % regValue;
+            case 0x50: return regValue;
+            default:   return -1;
         }
     }
 
