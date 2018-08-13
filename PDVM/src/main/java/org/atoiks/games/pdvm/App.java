@@ -52,7 +52,7 @@ public class App {
                 .setFps(24f)
                 .setResizable(false)
                 .setSize(WIDTH + (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0 ? 12 : 0), HEIGHT)
-                .setScenes(new Screen(), new CPUState(), new HelpPage());
+                .setScenes(new Screen(), new CPUState());
         processResources(info);
         try (final Frame frame = new Frame(info)) {
             frame.init();

@@ -8,7 +8,4 @@ Run with `./gradlew run`
 
 That will bring you to a black screen.
 
-If you are stuck:
-
-1. Press Ctrl-Alt-1 (Control-Option-1), that brings you to the debugger / code editor
-2. press Ctrl-H (Control-H), that brings you to the help page
+If you are stuck, visit http://pdvm.readthedocs.io/ for manual.

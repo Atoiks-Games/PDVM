@@ -85,8 +85,6 @@ public class CPUState extends Scene {
         g.drawString("IP: " + core.instrPointer, 15, 15 + 5 * MONOSPACE_FONT.getSize());
         g.drawString("IB: " + core.inputBuffer, 15, 15 + 6 * MONOSPACE_FONT.getSize());
 
-        g.drawString("^-H for manual", 10, 15 + 9 * MONOSPACE_FONT.getSize());
-
         g.drawLine(EDITOR_START_X, 0, EDITOR_START_X, HEIGHT);
 
         int height = 15; int index = 0;
@@ -134,13 +132,6 @@ public class CPUState extends Scene {
             if (scene.keyboard().isKeyDown(KeyEvent.VK_ALT) && scene.keyboard().isKeyPressed(KeyEvent.VK_1)) {
                 scene.keyboard().captureTypedChars(false);
                 scene.switchToScene(0);
-                return true;
-            }
-
-            // Get help
-            if (scene.keyboard().isKeyPressed(KeyEvent.VK_H)) {
-                scene.keyboard().captureTypedChars(false);
-                scene.gotoNextScene();
                 return true;
             }
 
