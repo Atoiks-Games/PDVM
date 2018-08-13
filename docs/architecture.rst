@@ -5,6 +5,18 @@ The initial screen you are introduced to is referred to as the run screen which 
 During this time, the processing unit will continue executing the code and repaint the screen according to the data
 memory.
 
+Quick info table:
+
++-----------------------+---------------+
+| Data Width            | 16 bits       |
++-----------------------+---------------+
+| Address Width         | 32 bits       |
++-----------------------+---------------+
+| Endianness            | Big Endian    |
++-----------------------+---------------+
+| Instruction Length    | Not fixed     |
++-----------------------+---------------+
+
 Processing Unit and Cores
 ------------------------
 
@@ -17,7 +29,7 @@ numerical calculation without involving this register. Each core also contains a
 value, and its state is either filled or empty.
 
 When the processing unit steps through the next instruction, core 0 is updated first and core 3 is updated last. This is
-important as it may affect the input buffer's state or reading from the data memory.
+important as it may affect the input buffer's state or accessing from the data memory.
 
 Memory Accessing
 ------------------------
