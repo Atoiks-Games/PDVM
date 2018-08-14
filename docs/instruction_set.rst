@@ -248,7 +248,7 @@ janp
 | Immediate | ``janp $1234abcd``| ``$12 $1234abcd`` |
 +-----------+-------------------+-------------------+
 
-Branches execution if register A ≠ register P
+Branches execution if register A does not equals to register P
 
 stha
 ^^^^^^^^^^^^^^^^^^^^^^^^
