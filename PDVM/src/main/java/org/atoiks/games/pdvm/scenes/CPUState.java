@@ -38,6 +38,7 @@ import static org.atoiks.games.pdvm.App.MONOSPACE_FONT;
 public class CPUState extends Scene {
 
     private static final int EDITOR_START_X = 102;
+    private static final int MAX_LINES_PER_PAGE = 36;
 
     private int currentCore;
 
@@ -87,20 +88,20 @@ public class CPUState extends Scene {
 
         g.drawLine(EDITOR_START_X, 0, EDITOR_START_X, HEIGHT);
 
-        int height = 15; int index = 0;
-        for (final StringBuilder s : lines[currentCore]) {
-            String render = s.toString();
-            if (index != lines[currentCore].size() - 1) {
+        final int startIndex = Math.max(0, offsets[currentCore] - MAX_LINES_PER_PAGE);
+        final ListIterator<StringBuilder> it = lines[currentCore].listIterator(startIndex);
+        for (int virtIndex = 0; virtIndex <= MAX_LINES_PER_PAGE && it.hasNext(); ++virtIndex) {
+            final int realIndex = virtIndex + startIndex;
+            String render = it.next().toString();
+            if (realIndex != lines[currentCore].size() - 1) {
                 render += '¬';
             }
 
+            final int height = 15 + virtIndex * MONOSPACE_FONT.getSize();
             g.drawString(render, EDITOR_START_X + 12, height);
-            if (index == offsets[currentCore]) {
+            if (realIndex == offsets[currentCore]) {
                 g.drawString("–>", EDITOR_START_X, height);
             }
-
-            height += MONOSPACE_FONT.getSize();
-            ++index;
         }
     }
 
