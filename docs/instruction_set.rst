@@ -338,7 +338,8 @@ phc
 | Implied   | ``phc``   | ``$18``   |
 +-----------+-----------+-----------+
 
-Pushes value of register C on to stack, increments stack pointer
+Pushes value of register C on to stack, increments stack pointer.
+Overwrites previous data mapped on the memory
 
 ppc
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -349,7 +350,8 @@ ppc
 | Implied   | ``ppc``   | ``$19``   |
 +-----------+-----------+-----------+
 
-Pops from stack and stores into register C, decrements stack pointer
+Pops from stack and stores into register C, decrements stack pointer.
+Memory of the mapped data is preserved instead of being zeroed out
 
 ret
 ^^^^^^^^^^^^^^^^^^^^^^^^
