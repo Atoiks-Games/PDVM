@@ -458,6 +458,102 @@ public class Assembler extends AssemblyBaseListener {
     }
 
     @Override
+    public void enterOpJl(AssemblyParser.OpJlContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES + Integer.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpJl(AssemblyParser.OpJlContext ctx) {
+        if (code != null) {
+            code.put(OP_JL);
+            code.put((byte) ((registerToByte(ctx.ra) << (Byte.SIZE / 2)) | registerToByte(ctx.rb)));
+            code.putInt(retInt);
+        }
+    }
+
+    @Override
+    public void enterOpJg(AssemblyParser.OpJgContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES + Integer.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpJg(AssemblyParser.OpJgContext ctx) {
+        if (code != null) {
+            code.put(OP_JG);
+            code.put((byte) ((registerToByte(ctx.ra) << (Byte.SIZE / 2)) | registerToByte(ctx.rb)));
+            code.putInt(retInt);
+        }
+    }
+
+    @Override
+    public void enterOpJle(AssemblyParser.OpJleContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES + Integer.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpJle(AssemblyParser.OpJleContext ctx) {
+        if (code != null) {
+            code.put(OP_JLE);
+            code.put((byte) ((registerToByte(ctx.ra) << (Byte.SIZE / 2)) | registerToByte(ctx.rb)));
+            code.putInt(retInt);
+        }
+    }
+
+    @Override
+    public void enterOpJge(AssemblyParser.OpJgeContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES + Integer.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpJge(AssemblyParser.OpJgeContext ctx) {
+        if (code != null) {
+            code.put(OP_JGE);
+            code.put((byte) ((registerToByte(ctx.ra) << (Byte.SIZE / 2)) | registerToByte(ctx.rb)));
+            code.putInt(retInt);
+        }
+    }
+
+    @Override
+    public void enterOpJe(AssemblyParser.OpJeContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES + Integer.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpJe(AssemblyParser.OpJeContext ctx) {
+        if (code != null) {
+            code.put(OP_JE);
+            code.put((byte) ((registerToByte(ctx.ra) << (Byte.SIZE / 2)) | registerToByte(ctx.rb)));
+            code.putInt(retInt);
+        }
+    }
+
+    @Override
+    public void enterOpJn(AssemblyParser.OpJnContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Byte.BYTES + Integer.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpJn(AssemblyParser.OpJnContext ctx) {
+        if (code != null) {
+            code.put(OP_JN);
+            code.put((byte) ((registerToByte(ctx.ra) << (Byte.SIZE / 2)) | registerToByte(ctx.rb)));
+            code.putInt(retInt);
+        }
+    }
+
+    @Override
     public void enterDefLabel(AssemblyParser.DefLabelContext ctx) {
         if (code == null) {
             lbladdr.put(ctx.getText(), address);
