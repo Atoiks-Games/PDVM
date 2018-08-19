@@ -59,29 +59,13 @@ public class Assembler extends AssemblyBaseListener {
         return asm.code.array();
     }
 
-    @Override
-    public void enterRegA(AssemblyParser.RegAContext ctx) {
-        retByte = 0;
-    }
-
-    @Override
-    public void enterRegP(AssemblyParser.RegPContext ctx) {
-        retByte = 1;
-    }
-
-    @Override
-    public void enterRegC(AssemblyParser.RegCContext ctx) {
-        retByte = 2;
-    }
-
-    @Override
-    public void enterRegIP(AssemblyParser.RegIPContext ctx) {
-        retByte = 3;
-    }
-
-    @Override
-    public void enterRegSP(AssemblyParser.RegSPContext ctx) {
-        retByte = 4;
+    private static byte registerToByte(AssemblyParser.RegisterContext ctx) {
+        if (ctx.a != null) return 0;
+        if (ctx.p != null) return 1;
+        if (ctx.c != null) return 2;
+        if (ctx.ip != null) return 3;
+        if (ctx.sp != null) return 4;
+        throw new AssertionError("Unhandled register " + ctx.getText());
     }
 
     @Override
@@ -417,14 +401,9 @@ public class Assembler extends AssemblyBaseListener {
     public void enterOpAdd(AssemblyParser.OpAddContext ctx) {
         if (code == null) {
             address += Byte.BYTES + Byte.BYTES;
-        }
-    }
-
-    @Override
-    public void exitOpAdd(AssemblyParser.OpAddContext ctx) {
-        if (code != null) {
+        } else {
             code.put(OP_ALU);
-            code.put((byte) (0x00 | retByte));
+            code.put((byte) (0x00 | registerToByte(ctx.r)));
         }
     }
 
@@ -432,14 +411,9 @@ public class Assembler extends AssemblyBaseListener {
     public void enterOpSub(AssemblyParser.OpSubContext ctx) {
         if (code == null) {
             address += Byte.BYTES + Byte.BYTES;
-        }
-    }
-
-    @Override
-    public void exitOpSub(AssemblyParser.OpSubContext ctx) {
-        if (code != null) {
+        } else {
             code.put(OP_ALU);
-            code.put((byte) (0x10 | retByte));
+            code.put((byte) (0x10 | registerToByte(ctx.r)));
         }
     }
 
@@ -447,14 +421,9 @@ public class Assembler extends AssemblyBaseListener {
     public void enterOpMul(AssemblyParser.OpMulContext ctx) {
         if (code == null) {
             address += Byte.BYTES + Byte.BYTES;
-        }
-    }
-
-    @Override
-    public void exitOpMul(AssemblyParser.OpMulContext ctx) {
-        if (code != null) {
+        } else {
             code.put(OP_ALU);
-            code.put((byte) (0x20 | retByte));
+            code.put((byte) (0x20 | registerToByte(ctx.r)));
         }
     }
 
@@ -462,14 +431,9 @@ public class Assembler extends AssemblyBaseListener {
     public void enterOpDiv(AssemblyParser.OpDivContext ctx) {
         if (code == null) {
             address += Byte.BYTES + Byte.BYTES;
-        }
-    }
-
-    @Override
-    public void exitOpDiv(AssemblyParser.OpDivContext ctx) {
-        if (code != null) {
+        } else {
             code.put(OP_ALU);
-            code.put((byte) (0x30 | retByte));
+            code.put((byte) (0x30 | registerToByte(ctx.r)));
         }
     }
 
@@ -477,14 +441,9 @@ public class Assembler extends AssemblyBaseListener {
     public void enterOpMod(AssemblyParser.OpModContext ctx) {
         if (code == null) {
             address += Byte.BYTES + Byte.BYTES;
-        }
-    }
-
-    @Override
-    public void exitOpMod(AssemblyParser.OpModContext ctx) {
-        if (code != null) {
+        } else {
             code.put(OP_ALU);
-            code.put((byte) (0x40 | retByte));
+            code.put((byte) (0x40 | registerToByte(ctx.r)));
         }
     }
 
@@ -492,14 +451,9 @@ public class Assembler extends AssemblyBaseListener {
     public void enterOpM2C(AssemblyParser.OpM2CContext ctx) {
         if (code == null) {
             address += Byte.BYTES + Byte.BYTES;
-        }
-    }
-
-    @Override
-    public void exitOpM2C(AssemblyParser.OpM2CContext ctx) {
-        if (code != null) {
+        } else {
             code.put(OP_ALU);
-            code.put((byte) (0x50 | retByte));
+            code.put((byte) (0x50 | registerToByte(ctx.r)));
         }
     }
 
@@ -531,7 +485,7 @@ public class Assembler extends AssemblyBaseListener {
     @Override
     public void exitIndirect(AssemblyParser.IndirectContext ctx) {
         retShort = (short) numberTextToInt(ctx.addr.getText());
-        retByte += 0x10;
+        retByte = (byte) (0x10 | registerToByte(ctx.r));
     }
 
     @Override
@@ -542,7 +496,7 @@ public class Assembler extends AssemblyBaseListener {
     @Override
     public void exitIndirectY(AssemblyParser.IndirectYContext ctx) {
         retShort = (short) numberTextToInt(ctx.addr.getText());
-        retByte += 0x30;
+        retByte = (byte) (0x30 | registerToByte(ctx.r));
     }
 
     private static int numberTextToInt(final String str) {

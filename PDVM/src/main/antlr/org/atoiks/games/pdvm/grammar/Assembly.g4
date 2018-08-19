@@ -78,11 +78,11 @@ WS: [ \t\r\n]+ -> Channel(HIDDEN);
 CM: ';' ~[\r\n]* -> Channel(HIDDEN);
 
 register
-    : REG_IP # regIP
-    | REG_SP # regSP
-    | REG_A # regA
-    | REG_P # regP
-    | REG_C # regC
+    : ip=REG_IP
+    | sp=REG_SP
+    | a=REG_A
+    | p=REG_P
+    | c=REG_C
     ;
 
 program
@@ -117,12 +117,12 @@ opline
     | OP_C2S # opC2S
     | OP_SWSC # opSwsc
     | OP_LDS immediate # opLds
-    | OP_ADD register # opAdd
-    | OP_SUB register # opSub
-    | OP_MUL register # opMul
-    | OP_DIV register # opDiv
-    | OP_MOD register # opMod
-    | OP_M2C register # opM2C
+    | OP_ADD r=register # opAdd
+    | OP_SUB r=register # opSub
+    | OP_MUL r=register # opMul
+    | OP_DIV r=register # opDiv
+    | OP_MOD r=register # opMod
+    | OP_M2C r=register # opM2C
     | LABEL # defLabel
     ;
 
@@ -138,8 +138,8 @@ memory
     ;
 
 indirect
-    : addr=NUMBER COMMA register
-    | register COMMA addr=NUMBER
+    : addr=NUMBER COMMA r=register
+    | r=register COMMA addr=NUMBER
     ;
 
 indirectX
@@ -147,6 +147,6 @@ indirectX
     ;
 
 indirectY
-    : OPEN addr=NUMBER CLOSE COMMA register
-    | register COMMA OPEN addr=NUMBER CLOSE
+    : OPEN addr=NUMBER CLOSE COMMA r=register
+    | r=register COMMA OPEN addr=NUMBER CLOSE
     ;
