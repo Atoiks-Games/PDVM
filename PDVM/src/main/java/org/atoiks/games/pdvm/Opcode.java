@@ -82,6 +82,14 @@ public final class Opcode {
     public static final byte OP_C2S = 0x1A;
     public static final byte OP_SWSC = 0x1B;
 
+    // <op> <0x[reg1][reg2]> <32 bit>
+    public static final byte OP_JL = 0x20; // temporary value
+    public static final byte OP_JG = 0x21; // temporary value
+    public static final byte OP_JLE = 0x22; // temporary value
+    public static final byte OP_JGE = 0x23; // temporary value
+    public static final byte OP_JE = 0x24; // temporary value
+    public static final byte OP_JN = 0x25; // temporary value
+
     private Opcode() {
         //
     }

@@ -160,8 +160,23 @@ public class Core implements Unit {
             }
             case OP_LDS: stackPointer = fetch32Bit(); break;
             case OP_ALU: c = handleALU(fetch8Bit()); break;
+            case OP_JL: handleCmpJmp(fetch8Bit(), fetch32Bit(), (a, b) -> a < b); break;
+            case OP_JG: handleCmpJmp(fetch8Bit(), fetch32Bit(), (a, b) -> a > b); break;
+            case OP_JLE: handleCmpJmp(fetch8Bit(), fetch32Bit(), (a, b) -> a <= b); break;
+            case OP_JGE: handleCmpJmp(fetch8Bit(), fetch32Bit(), (a, b) -> a >= b); break;
+            case OP_JE: handleCmpJmp(fetch8Bit(), fetch32Bit(), (a, b) -> a == b); break;
+            case OP_JN: handleCmpJmp(fetch8Bit(), fetch32Bit(), (a, b) -> a != b); break;
             default:
                 throw new IllegalStateException("PANIC: Unknown opcode " + op);
+        }
+    }
+
+    private void handleCmpJmp(final int k, final int brAddr, final BiIntPred cmp) {
+        // Behaviour is specified by Opcode.java
+        final int a = getRegisterValueFromIndex(k & 0xF0);
+        final int b = getRegisterValueFromIndex(k & 0x0F);
+        if (cmp.test(a, b)) {
+            instrPointer = brAddr;
         }
     }
 
@@ -224,4 +239,9 @@ public class Core implements Unit {
     public void mapMemory(final Memory mem) {
         this.mem = mem;
     }
+}
+
+interface BiIntPred {
+
+    public boolean test(int a, int b);
 }
