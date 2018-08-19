@@ -94,26 +94,6 @@ public class Core implements Unit {
             case OP_LDA: a = (short) fetch16Bit(); break;
             case OP_LDP: p = (short) fetch16Bit(); break;
             case OP_JMP: instrPointer = fetch32Bit(); break;
-            case OP_JALP: {
-                final int addr = fetch32Bit();
-                if (a < p) instrPointer = addr;
-                break;
-            }
-            case OP_JAGP: {
-                final int addr = fetch32Bit();
-                if (a > p) instrPointer = addr;
-                break;
-            }
-            case OP_JAEP: {
-                final int addr = fetch32Bit();
-                if (a == p) instrPointer = addr;
-                break;
-            }
-            case OP_JANP: {
-                final int addr = fetch32Bit();
-                if (a != p) instrPointer = addr;
-                break;
-            }
             case OP_STHA:
                 mem.data.put(calculateEffectiveAddress(fetch16Bit(), fetch8Bit()), (byte) a);
                 break;

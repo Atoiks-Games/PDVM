@@ -186,66 +186,6 @@ public class Assembler extends AssemblyBaseListener {
     }
 
     @Override
-    public void enterOpJalp(AssemblyParser.OpJalpContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES + Integer.BYTES;
-        }
-    }
-
-    @Override
-    public void exitOpJalp(AssemblyParser.OpJalpContext ctx) {
-        if (code != null) {
-            code.put(OP_JALP);
-            code.putInt(retInt);
-        }
-    }
-
-    @Override
-    public void enterOpJagp(AssemblyParser.OpJagpContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES + Integer.BYTES;
-        }
-    }
-
-    @Override
-    public void exitOpJagp(AssemblyParser.OpJagpContext ctx) {
-        if (code != null) {
-            code.put(OP_JAGP);
-            code.putInt(retInt);
-        }
-    }
-
-    @Override
-    public void enterOpJaep(AssemblyParser.OpJaepContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES + Integer.BYTES;
-        }
-    }
-
-    @Override
-    public void exitOpJaep(AssemblyParser.OpJaepContext ctx) {
-        if (code != null) {
-            code.put(OP_JAEP);
-            code.putInt(retInt);
-        }
-    }
-
-    @Override
-    public void enterOpJanp(AssemblyParser.OpJanpContext ctx) {
-        if (code == null) {
-            address += Byte.BYTES + Integer.BYTES;
-        }
-    }
-
-    @Override
-    public void exitOpJanp(AssemblyParser.OpJanpContext ctx) {
-        if (code != null) {
-            code.put(OP_JANP);
-            code.putInt(retInt);
-        }
-    }
-
-    @Override
     public void enterOpStha(AssemblyParser.OpSthaContext ctx) {
         if (code == null) {
             address += Byte.BYTES + Short.BYTES + Byte.BYTES;

@@ -107,10 +107,6 @@ opline
     | OP_LDA immediate # opLda
     | OP_LDP immediate # opLdp
     | OP_JMP immediate # opJmp
-    | OP_JALP immediate # opJalp
-    | OP_JAGP immediate # opJagp
-    | OP_JAEP immediate # opJaep
-    | OP_JANP immediate # opJanp
     | OP_STHA memory # opStha
     | OP_STFA memory # opStfa
     | OP_LDHA memory # opLdha
