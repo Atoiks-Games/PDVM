@@ -63,6 +63,12 @@ OP_MUL: M U L;
 OP_DIV: D I V;
 OP_MOD: M O D;
 OP_M2C: M '2' C;
+OP_JL: J L;
+OP_JG: J G;
+OP_JLE: J L E;
+OP_JGE: J G E;
+OP_JE: J E;
+OP_JN: J N;
 
 COMMA: ',';
 OPEN: '(';
@@ -101,10 +107,6 @@ opline
     | OP_LDA immediate # opLda
     | OP_LDP immediate # opLdp
     | OP_JMP immediate # opJmp
-    | OP_JALP immediate # opJalp
-    | OP_JAGP immediate # opJagp
-    | OP_JAEP immediate # opJaep
-    | OP_JANP immediate # opJanp
     | OP_STHA memory # opStha
     | OP_STFA memory # opStfa
     | OP_LDHA memory # opLdha
@@ -123,6 +125,12 @@ opline
     | OP_DIV r=register # opDiv
     | OP_MOD r=register # opMod
     | OP_M2C r=register # opM2C
+    | OP_JL ra=register rb=register immediate # opJl
+    | OP_JG ra=register rb=register immediate # opJg
+    | OP_JLE ra=register rb=register immediate # opJle
+    | OP_JGE ra=register rb=register immediate # opJge
+    | OP_JE ra=register rb=register immediate # opJe
+    | OP_JN ra=register rb=register immediate # opJn
     | LABEL # defLabel
     ;
 

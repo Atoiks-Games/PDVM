@@ -57,10 +57,12 @@ public final class Opcode {
 
     // <op> <32 bit>
     public static final byte OP_JMP = 0xE;
-    public static final byte OP_JALP = 0xF;
-    public static final byte OP_JAGP = 0x10;
-    public static final byte OP_JAEP = 0x11;
-    public static final byte OP_JANP = 0x12;
+
+    // <op> <0x[reg1][reg2]> <32 bit>
+    public static final byte OP_JL = 0xF;
+    public static final byte OP_JG = 0x10;
+    public static final byte OP_JE = 0x11;
+    public static final byte OP_JN = 0x12;
 
     // <op> <16 bit> <0x0[reg]> => *(addr)
     // <op> <16 bit> <0x1[reg]> => *(addr + R)
@@ -81,6 +83,10 @@ public final class Opcode {
     // <op>
     public static final byte OP_C2S = 0x1A;
     public static final byte OP_SWSC = 0x1B;
+
+    // <op> <0x[reg1][reg2]> <32 bit>
+    public static final byte OP_JLE = 0x1C;
+    public static final byte OP_JGE = 0x1D;
 
     private Opcode() {
         //
