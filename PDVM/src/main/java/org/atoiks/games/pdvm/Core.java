@@ -146,6 +146,20 @@ public class Core implements Unit {
             case OP_JGE: handleCmpJmp(fetch8Bit(), fetch32Bit(), (a, b) -> a >= b); break;
             case OP_JE: handleCmpJmp(fetch8Bit(), fetch32Bit(), (a, b) -> a == b); break;
             case OP_JN: handleCmpJmp(fetch8Bit(), fetch32Bit(), (a, b) -> a != b); break;
+            case OP_JBF: {
+                final int newIp = fetch32Bit();
+                if (unit.getCore(p).inputBuffer != null) {
+                    instrPointer = newIp;
+                }
+                break;
+            }
+            case OP_JBE: {
+                final int newIp = fetch32Bit();
+                if (unit.getCore(p).inputBuffer == null) {
+                    instrPointer = newIp;
+                }
+                break;
+            }
             default:
                 throw new IllegalStateException("PANIC: Unknown opcode " + op);
         }

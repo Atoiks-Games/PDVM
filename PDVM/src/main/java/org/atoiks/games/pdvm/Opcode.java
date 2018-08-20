@@ -88,6 +88,10 @@ public final class Opcode {
     public static final byte OP_JLE = 0x1C;
     public static final byte OP_JGE = 0x1D;
 
+    // <op> <32 bit>
+    public static final byte OP_JBF = 0x1E;
+    public static final byte OP_JBE = 0x1F;
+
     private Opcode() {
         //
     }
