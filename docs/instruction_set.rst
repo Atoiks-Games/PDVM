@@ -272,6 +272,28 @@ jn
 
 Branches execution if the first register does not equals to the second register
 
+jbf
+^^^^^^^^^^^^^^^^^^^^^^^^
+
++-----------+-------------------+-------------------+
+| Mode      | Syntax            | Hex               |
++===========+===================+===================+
+| Immediate | ``jbf $1234abcd`` | ``$1E $1234abcd`` |
++-----------+-------------------+-------------------+
+
+Branches execution if input buffer of core specified by register P is filled
+
+jbe
+^^^^^^^^^^^^^^^^^^^^^^^^
+
++-----------+-------------------+-------------------+
+| Mode      | Syntax            | Hex               |
++===========+===================+===================+
+| Immediate | ``jbe $1234abcd`` | ``$1F $1234abcd`` |
++-----------+-------------------+-------------------+
+
+Branches execution if input buffer of core specified by register P is empty
+
 stha
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
