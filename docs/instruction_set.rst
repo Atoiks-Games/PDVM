@@ -149,7 +149,29 @@ send
 | Implied   | ``send``  | ``$07``   |
 +-----------+-----------+-----------+
 
-Sends value in register A to the core specified by register P. It will keep retrying until the destination core's input buffer is empty
+Sends value in register A to the input buffer of the core specified by register P. It will keep retrying until the destination core's input buffer is empty
+
+fsnd
+^^^^^^^^^^^^^^^^^^^^^^^^
+
++-----------+-----------+-----------+
+| Mode      | Syntax    | Hex       |
++===========+===========+===========+
+| Implied   | ``fsnd``  | ``$20``   |
++-----------+-----------+-----------+
+
+Sends value in register A to the input buffer of the core specified by register P. This will overwrite the buffer if it was filled
+
+dsnd
+^^^^^^^^^^^^^^^^^^^^^^^^
+
++-----------+-----------+-----------+
+| Mode      | Syntax    | Hex       |
++===========+===========+===========+
+| Implied   | ``dsnd``  | ``$21``   |
++-----------+-----------+-----------+
+
+Sends value in register A to the input buffer of the core specified by register P. This does nothing if the buffer is filled
 
 recv
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -161,6 +183,17 @@ recv
 +-----------+-----------+-----------+
 
 Moves the value from the core's input buffer into register A. It will keep retrying until the input buffer is filled
+
+drcv
+^^^^^^^^^^^^^^^^^^^^^^^^
+
++-----------+---------------+---------------+
+| Mode      | Syntax        | Hex           |
++===========+===============+===============+
+| Immediate | ``drcv $1234``| ``$22 $1234`` |
++-----------+---------------+---------------+
+
+Moves the value from the core's input buffer into register A. If input buffer is empty, the 16 bit constant supplied is stored into register A instead
 
 lda
 ^^^^^^^^^^^^^^^^^^^^^^^^
