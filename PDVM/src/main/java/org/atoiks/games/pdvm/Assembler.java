@@ -494,6 +494,69 @@ public class Assembler extends AssemblyBaseListener {
     }
 
     @Override
+    public void enterOpJbf(AssemblyParser.OpJbfContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Integer.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpJbf(AssemblyParser.OpJbfContext ctx) {
+        if (code != null) {
+            code.put(OP_JBF);
+            code.putInt(retInt);
+        }
+    }
+
+    @Override
+    public void enterOpJbe(AssemblyParser.OpJbeContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Integer.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpJbe(AssemblyParser.OpJbeContext ctx) {
+        if (code != null) {
+            code.put(OP_JBE);
+            code.putInt(retInt);
+        }
+    }
+
+    @Override
+    public void enterOpFsnd(AssemblyParser.OpFsndContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES;
+        } else {
+            code.put(OP_FSND);
+        }
+    }
+
+    @Override
+    public void enterOpDsnd(AssemblyParser.OpDsndContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES;
+        } else {
+            code.put(OP_DSND);
+        }
+    }
+
+    @Override
+    public void enterOpDrcv(AssemblyParser.OpDrcvContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Short.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpDrcv(AssemblyParser.OpDrcvContext ctx) {
+        if (code != null) {
+            code.put(OP_DRCV);
+            code.putShort((short) retInt);
+        }
+    }
+
+    @Override
     public void enterDefLabel(AssemblyParser.DefLabelContext ctx) {
         if (code == null) {
             lbladdr.put(ctx.getText(), address);
