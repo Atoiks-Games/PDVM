@@ -1,7 +1,7 @@
 Architecture
 ========================
 
-The initial screen you are introduced to is referred to as the run screen which can be accessed by pressing ^-Alt-1.
+The initial screen you are introduced to is referred to as the run screen which can be accessed by pressing :kbd:`Control-Alt-1`.
 During this time, the processing unit will continue executing the code and repaint the screen according to the data
 memory.
 
