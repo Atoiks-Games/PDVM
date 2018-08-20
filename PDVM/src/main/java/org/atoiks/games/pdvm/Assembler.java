@@ -524,6 +524,39 @@ public class Assembler extends AssemblyBaseListener {
     }
 
     @Override
+    public void enterOpFsnd(AssemblyParser.OpFsndContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES;
+        } else {
+            code.put(OP_FSND);
+        }
+    }
+
+    @Override
+    public void enterOpDsnd(AssemblyParser.OpDsndContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES;
+        } else {
+            code.put(OP_DSND);
+        }
+    }
+
+    @Override
+    public void enterOpDrcv(AssemblyParser.OpDrcvContext ctx) {
+        if (code == null) {
+            address += Byte.BYTES + Short.BYTES;
+        }
+    }
+
+    @Override
+    public void exitOpDrcv(AssemblyParser.OpDrcvContext ctx) {
+        if (code != null) {
+            code.put(OP_DRCV);
+            code.putShort((short) retInt);
+        }
+    }
+
+    @Override
     public void enterDefLabel(AssemblyParser.DefLabelContext ctx) {
         if (code == null) {
             lbladdr.put(ctx.getText(), address);

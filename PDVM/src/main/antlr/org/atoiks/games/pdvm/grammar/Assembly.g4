@@ -71,6 +71,9 @@ OP_JE: J E;
 OP_JN: J N;
 OP_JBF: J B F;
 OP_JBE: J B E;
+OP_FSND: F S N D;
+OP_DSND: D S N D;
+OP_DRCV: D R C V;
 
 COMMA: ',';
 OPEN: '(';
@@ -135,6 +138,9 @@ opline
     | OP_JN ra=register rb=register immediate # opJn
     | OP_JBF immediate # opJbf
     | OP_JBE immediate # opJbe
+    | OP_FSND # opFsnd
+    | OP_DSND # opDsnd
+    | OP_DRCV immediate # opDrcv
     | LABEL # defLabel
     ;
 
