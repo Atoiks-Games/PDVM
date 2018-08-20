@@ -4,7 +4,7 @@ Instruction Set
 List of Instructions
 ------------------------
 
-hlt
+hlt (Halt)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -15,7 +15,7 @@ hlt
 
 To halt the execution
 
-add
+add (Add)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+---------------+---------------+
@@ -26,7 +26,7 @@ add
 
 Register C = register C + specified register
 
-sub
+sub (Subtract)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+---------------+---------------+
@@ -37,7 +37,7 @@ sub
 
 Register C = register C - specified register
 
-mul
+mul (Multiply)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+---------------+---------------+
@@ -48,7 +48,7 @@ mul
 
 Register C = register C * specified register
 
-div
+div (Divide)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+---------------+---------------+
@@ -59,7 +59,7 @@ div
 
 Register C = register C / specified register
 
-mod
+mod (Modulo)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+---------------+---------------+
@@ -70,7 +70,7 @@ mod
 
 Register C = register C mod specified register
 
-m2c
+m2c (Move to register C)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+---------------+---------------+
@@ -81,7 +81,7 @@ m2c
 
 Register C = specified register
 
-ch2a
+ch2a (Move register C's higher half to register A)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -93,7 +93,7 @@ ch2a
 
 Moves the upper 16 bits from register C to register A
 
-ch2p
+ch2p (Move register C's higher half to register P)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -105,7 +105,7 @@ ch2p
 
 Moves the upper 16 bits from register C to register P
 
-cl2a
+cl2a (Move register C's lower half to register A)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -117,7 +117,7 @@ cl2a
 
 Moves the lower 16 bits from register C to register A
 
-cl2p
+cl2p (Move register C's lower half to register P)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -129,7 +129,7 @@ cl2p
 
 Moves the lower 16 bits from register C to register P
 
-ap2c
+ap2c (Move register A and P to register C)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -140,7 +140,7 @@ ap2c
 
 Moves register A as upper 16 bits and register P as lower 16 bits into register C
 
-send
+send (Send)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -151,7 +151,7 @@ send
 
 Sends value in register A to the input buffer of the core specified by register P. It will keep retrying until the destination core's input buffer is empty
 
-fsnd
+fsnd (Forced send)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -162,7 +162,7 @@ fsnd
 
 Sends value in register A to the input buffer of the core specified by register P. This will overwrite the buffer if it was filled
 
-dsnd
+dsnd (Discard send)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -173,7 +173,7 @@ dsnd
 
 Sends value in register A to the input buffer of the core specified by register P. This does nothing if the buffer is filled
 
-recv
+recv (Receive)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -184,7 +184,7 @@ recv
 
 Moves the value from the core's input buffer into register A. It will keep retrying until the input buffer is filled
 
-drcv
+drcv (Default-value or receive)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+---------------+---------------+
@@ -195,7 +195,7 @@ drcv
 
 Moves the value from the core's input buffer into register A. If input buffer is empty, the 16 bit constant supplied is stored into register A instead
 
-lda
+lda (Load value to register A)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+---------------+---------------+
@@ -206,7 +206,7 @@ lda
 
 Stores an immediate value into register A
 
-ldp
+ldp (Load value to register P)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+---------------+---------------+
@@ -217,7 +217,7 @@ ldp
 
 Stores an immediate value into register P
 
-lds
+lds (Load value to stack pointer)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-------------------+-------------------+
@@ -228,7 +228,7 @@ lds
 
 Stores an immediate value into stack pointer
 
-jmp
+jmp (Jump)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-------------------+-------------------+
@@ -239,7 +239,7 @@ jmp
 
 Branches execution to specified address
 
-jl
+jl (Jump if less than)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------------------+---------------------------+
@@ -250,7 +250,7 @@ jl
 
 Branches execution if first register < second register
 
-jg
+jg (Jump if greater than)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------------------+---------------------------+
@@ -261,7 +261,7 @@ jg
 
 Branches execution if first register > second register
 
-jle
+jle (Jump if less than or equal to)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+---------------------------+---------------------------+
@@ -272,7 +272,7 @@ jle
 
 Branches execution if the first register is less than or equal to the second register
 
-jge
+jge (Jump if greater than or equal to)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+---------------------------+---------------------------+
@@ -283,7 +283,7 @@ jge
 
 Branches execution if the first register is greater than or equal to the second register
 
-je
+je (Jump if equals)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------------------+---------------------------+
@@ -294,7 +294,7 @@ je
 
 Branches execution if first register = second register
 
-jn
+jn (Jump if not equals)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------------------+---------------------------+
@@ -305,7 +305,7 @@ jn
 
 Branches execution if the first register does not equals to the second register
 
-jbf
+jbf (Jump if buffer is filled)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-------------------+-------------------+
@@ -316,7 +316,7 @@ jbf
 
 Branches execution if input buffer of core specified by register P is filled
 
-jbe
+jbe (Jump if buffer is empty)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-------------------+-------------------+
@@ -327,7 +327,7 @@ jbe
 
 Branches execution if input buffer of core specified by register P is empty
 
-stha
+stha (Store half of register A)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-------------------+-----------------------+-------------------+
@@ -344,7 +344,7 @@ stha
 
 Stores the lower 8 bits of register A into the data memory
 
-stfa
+stfa (Store full register A)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-------------------+-----------------------+-------------------+
@@ -361,7 +361,7 @@ stfa
 
 Stores the value of register A into the data memory. It will take two slots since each memory slot is 8 bits
 
-ldha
+ldha (Load half to register A)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-------------------+-----------------------+-------------------+
@@ -378,7 +378,7 @@ ldha
 
  Loads value from data memory to register A. Register A now contains an 8 bit value
 
-ldfa
+ldfa (Load full to register A)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-------------------+-----------------------+-------------------+
@@ -395,7 +395,7 @@ ldfa
 
 Loads two values from two consecutive data memory slots to register A. Register A now contains a 16 bit value
 
-swap
+swap (Swap register A and P)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -406,7 +406,7 @@ swap
 
 Swaps values of register A and P
 
-phc
+phc (Push register C)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -418,7 +418,7 @@ phc
 Pushes value of register C on to stack, increments stack pointer.
 Overwrites previous data mapped on the memory
 
-ppc
+ppc (Pop register C)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -430,7 +430,7 @@ ppc
 Pops from stack and stores into register C, decrements stack pointer.
 Memory of the mapped data is preserved instead of being zeroed out
 
-ret
+ret (Return)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -441,7 +441,7 @@ ret
 
 Pops from stack and jumps to it, decrements stack pointer, used with jsr
 
-jsr
+jsr (Jump subroutine)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-------------------+-------------------+
@@ -452,7 +452,7 @@ jsr
 
 Branches execution and saves the return address, increments stack pointer, used with ret
 
-c2s
+c2s (Move register C to stack pointer)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
@@ -463,7 +463,7 @@ c2s
 
 Stores register C's value into stack pointer
 
-swsc
+swsc (Swap stack pointer and register C)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 +-----------+-----------+-----------+
