@@ -69,6 +69,8 @@ OP_JLE: J L E;
 OP_JGE: J G E;
 OP_JE: J E;
 OP_JN: J N;
+OP_JBF: J B F;
+OP_JBE: J B E;
 
 COMMA: ',';
 OPEN: '(';
@@ -131,6 +133,8 @@ opline
     | OP_JGE ra=register rb=register immediate # opJge
     | OP_JE ra=register rb=register immediate # opJe
     | OP_JN ra=register rb=register immediate # opJn
+    | OP_JBF immediate # opJbf
+    | OP_JBE immediate # opJbe
     | LABEL # defLabel
     ;
 
